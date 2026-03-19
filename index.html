@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPOC Strategic Market Report - March 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        
+        :root {
+            --brand-primary: #2F855A; /* Deep Green */
+            --brand-secondary: #D69E2E; /* Gold */
+            --bg-canvas: #F9F7F2; /* Warm Sand */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-canvas);
+            color: #2D3748;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            transition: all 0.2s ease;
+        }
+
+        .tab-active {
+            border-bottom: 3px solid var(--brand-secondary);
+            color: var(--brand-secondary);
+            font-weight: 700;
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            height: 350px;
+            width: 100%;
+        }
+
+        .pulse-red {
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(229, 62, 62, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(229, 62, 62, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(229, 62, 62, 0); }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Header Section -->
+    <header class="max-w-7xl mx-auto mb-10 flex flex-col md:flex-row justify-between items-start md:items-center bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+        <div>
+            <div class="flex items-center gap-2 mb-2">
+                <span class="bg-[#2F855A] text-white text-[10px] font-black px-2 py-0.5 rounded">MPOC</span>
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Strategic Intelligence Unit</span>
+            </div>
+            <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">Market Update: The Energy-Agri Convergence</h1>
+            <p class="text-sm text-gray-500 mt-1">Reporting Period: February 28 – March 9, 2026</p>
+        </div>
+        <div class="mt-4 md:mt-0 text-right">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-red-50 border border-red-100 rounded-full pulse-red">
+                <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                <span class="text-xs font-bold text-red-700 uppercase">High Volatility Alert</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto space-y-8">
+
+        <!-- Executive Dashboard -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="glass-card p-6 metric-card">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">CPO Benchmark (March 9)</p>
+                <div class="flex items-baseline gap-2 mt-1">
+                    <span class="text-2xl font-black">4,774</span>
+                    <span class="text-xs font-bold text-gray-500">MYR/t</span>
+                </div>
+                <div class="text-green-600 text-xs font-bold mt-2 flex items-center">
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clip-rule="evenodd"></path></svg>
+                    <span>+9.32% Day Change</span>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 metric-card">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Brent Crude Oil</p>
+                <div class="flex items-baseline gap-2 mt-1">
+                    <span class="text-2xl font-black">$102.65</span>
+                    <span class="text-xs font-bold text-gray-500">USD/bbl</span>
+                </div>
+                <div class="text-red-600 text-xs font-bold mt-2 flex items-center">
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clip-rule="evenodd"></path></svg>
+                    <span>+10.75% Day Change</span>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 metric-card border-l-4 border-amber-500">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Kazakhstan Output</p>
+                <div class="flex items-baseline gap-2 mt-1">
+                    <span class="text-2xl font-black">888.8K</span>
+                    <span class="text-xs font-bold text-gray-500">Tons</span>
+                </div>
+                <p class="text-[10px] text-gray-500 mt-2">Annual growth of <span class="text-green-600 font-bold">+17.4%</span></p>
+            </div>
+
+            <div class="glass-card p-6 metric-card border-l-4 border-blue-500">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">India Imports (Feb)</p>
+                <div class="flex items-baseline gap-2 mt-1">
+                    <span class="text-2xl font-black">6-Mo High</span>
+                </div>
+                <p class="text-[10px] text-gray-500 mt-2">Volume increased by <span class="text-green-600 font-bold">+10.1%</span></p>
+            </div>
+        </section>
+
+        <!-- Market Gap & Price Dynamics -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 glass-card p-8">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                    <h2 class="text-xl font-extrabold text-gray-900">Price Dynamics: Edible Oil Complex</h2>
+                    <div class="flex gap-2 mt-2 md:mt-0">
+                        <span class="flex items-center gap-1 text-[10px] font-bold"><span class="w-3 h-3 bg-[#2F855A] rounded-full"></span> CPO</span>
+                        <span class="flex items-center gap-1 text-[10px] font-bold"><span class="w-3 h-3 bg-[#D69E2E] rounded-full"></span> Sun-Oil</span>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="mainMarketChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Regional Focus & Logistics -->
+            <div class="space-y-4">
+                <div class="glass-card p-6 bg-[#1A202C] text-white">
+                    <h3 class="text-sm font-black uppercase tracking-widest mb-4 border-b border-white/10 pb-2">Logistics Alert</h3>
+                    <div class="space-y-4">
+                        <div class="p-3 bg-red-900/20 rounded-xl border border-red-800">
+                            <p class="text-xs font-bold text-red-400">Strait of Hormuz Status</p>
+                            <p class="text-[11px] text-gray-400 mt-1">Functional paralysis due to conflict. 83% reduction in tanker transits. Surcharges: <span class="text-white font-bold">+$4,000/container</span>.</p>
+                        </div>
+                        <div class="p-3 bg-green-900/20 rounded-xl border border-green-800">
+                            <p class="text-xs font-bold text-green-400">Middle Corridor (TITR)</p>
+                            <p class="text-[11px] text-gray-400 mt-1">Volume surge expected as it bypasses Russia. Port of Baku (Azerbaijan) key gateway for Palm into CA.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 border-l-4 border-[#2F855A]">
+                    <h3 class="text-xs font-black uppercase text-gray-400 tracking-widest mb-3">EUDR Update</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed italic">"One-year delay confirmed. MSPO synchronization window remains open until Dec 30, 2026. Downstream operators now exempted from separate DDS."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Tables -->
+        <section class="glass-card overflow-hidden">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+                <h2 class="text-xl font-extrabold text-gray-900">Central Asia & Caucasus Market Data</h2>
+                <div class="flex gap-4">
+                    <button class="text-xs font-bold text-[#D69E2E] border-b-2 border-[#D69E2E] pb-1">Production</button>
+                    <button class="text-xs font-medium text-gray-400 hover:text-gray-600 pb-1">Supply Chain</button>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50/50 text-gray-500 uppercase text-[10px] font-black tracking-widest">
+                            <th class="px-6 py-4 border-b">Indicator</th>
+                            <th class="px-6 py-4 border-b">Reporting Value</th>
+                            <th class="px-6 py-4 border-b">YoY Change</th>
+                            <th class="px-6 py-4 border-b">Impact on Palm Oil</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700">
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4 font-bold">Kazakhstan Oilseed Area</td>
+                            <td class="px-6 py-4">3.9 Million Ha</td>
+                            <td class="px-6 py-4 text-green-600 font-bold">+37.7%</td>
+                            <td class="px-6 py-4 text-xs text-gray-500 italic">Increases local soft oil competition, but processing bottlenecks persist.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4 font-bold">Uzbekistan Import Spend</td>
+                            <td class="px-6 py-4">$2.76 Billion (Total)</td>
+                            <td class="px-6 py-4 text-gray-400 font-bold">Mixed</td>
+                            <td class="px-6 py-4 text-xs text-gray-500 italic">Uzbekistan remains the largest buyer in the region; key target for HORECA palm oil.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4 font-bold">Ukrainian Sunflower Oil</td>
+                            <td class="px-6 py-4">$1,580/t (FOB)</td>
+                            <td class="px-6 py-4 text-red-600 font-bold">+18.5%</td>
+                            <td class="px-6 py-4 text-xs text-gray-500 italic">Supply shortage drives substitution demand toward Malaysian CPO.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Strategic Conclusions -->
+        <section class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+            <h2 class="text-2xl font-black text-gray-900 mb-8 text-center uppercase tracking-tighter">Strategic Implications for MPOC</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-6 rounded-2xl bg-[#F0FFF4] border border-green-100">
+                    <div class="w-8 h-8 bg-green-200 rounded-full flex items-center justify-center mb-4">
+                        <span class="text-green-800 font-black">1</span>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-2">Pricing Advantage</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">The spread between Palm and Sun-oil has expanded to over $350/t. This is the primary driver for the <span class="font-bold">10.1% surge</span> in Indian imports and increased interest in Egypt.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-amber-50 border border-amber-100">
+                    <div class="w-8 h-8 bg-amber-200 rounded-full flex items-center justify-center mb-4">
+                        <span class="text-amber-800 font-black">2</span>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-2">Traceability Premium</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">The EUDR "simplification" for downstream users means early adopters of digital batch passports can secure <span class="font-bold">"Compliant Supplier"</span> status and charge a premium.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-blue-50 border border-blue-100">
+                    <div class="w-8 h-8 bg-blue-200 rounded-full flex items-center justify-center mb-4">
+                        <span class="text-blue-800 font-black">3</span>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-2">Middle Corridor Entry</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">Infrastructure vulnerability in the Black Sea and Hormuz necessitates a strategic partnership with <span class="font-bold">Port of Baku</span> to supply the CIS region.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="max-w-7xl mx-auto mt-12 mb-8 px-6 text-center">
+        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">© 2026 Malaysian Palm Oil Council Strategic Unit | Confidential Research Document</p>
+    </footer>
+
+    <script>
+        const ctx = document.getElementById('mainMarketChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Feb 28', 'Mar 2', 'Mar 4', 'Mar 6', 'Mar 9 (Peak)'],
+                datasets: [
+                    {
+                        label: 'Crude Palm Oil (MYR/t)',
+                        data: [4210, 4350, 4420, 4510, 4774],
+                        borderColor: '#2F855A',
+                        backgroundColor: 'rgba(47, 133, 90, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#2F855A'
+                    },
+                    {
+                        label: 'Sunflower Oil (Odesa CPT)',
+                        data: [1210, 1225, 1240, 1255, 1260],
+                        borderColor: '#D69E2E',
+                        borderDash: [5, 5],
+                        tension: 0.4,
+                        borderWidth: 2,
+                        pointRadius: 0
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        grid: { color: 'rgba(0,0,0,0.05)' },
+                        ticks: { font: { size: 10, weight: 'bold' } }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { size: 10, weight: 'bold' } }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
