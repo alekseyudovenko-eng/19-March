@@ -2,289 +2,536 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MPOC Strategic Market Report - March 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vegetable Oils Market Report</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
-        
         :root {
-            --brand-primary: #2F855A; /* Deep Green */
-            --brand-secondary: #D69E2E; /* Gold */
-            --bg-canvas: #F9F7F2; /* Warm Sand */
+            --tg-theme-bg-color: #ffffff;
+            --tg-theme-text-color: #000000;
+            --tg-theme-hint-color: #707579;
+            --tg-theme-link-color: #3390ec;
+            --tg-theme-button-color: #3390ec;
+            --tg-theme-button-text-color: #ffffff;
+            --tg-theme-secondary-bg-color: #f4f4f5;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-canvas);
-            color: #2D3748;
+            background-color: var(--tg-theme-secondary-bg-color);
+            color: var(--tg-theme-text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding-bottom: 30px;
         }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        .card {
+            background: var(--tg-theme-bg-color);
+            margin: 10px;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
-        .metric-card:hover {
-            transform: translateY(-2px);
-            transition: all 0.2s ease;
+        .header {
+            background: var(--tg-theme-bg-color);
+            padding: 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #e5e7eb;
         }
 
-        .tab-active {
-            border-bottom: 3px solid var(--brand-secondary);
-            color: var(--brand-secondary);
-            font-weight: 700;
+        .lang-switcher {
+            display: flex;
+            gap: 4px;
+            background: var(--tg-theme-secondary-bg-color);
+            padding: 4px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            width: fit-content;
         }
-        
-        .chart-wrapper {
-            position: relative;
-            height: 350px;
+
+        .lang-btn {
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--tg-theme-button-color);
+            color: white;
+        }
+
+        .nav-tabs {
+            display: flex;
+            overflow-x: auto;
+            background: var(--tg-theme-bg-color);
+            padding: 8px 10px;
+            gap: 8px;
+            scrollbar-width: none;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .nav-tab {
+            white-space: nowrap;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: var(--tg-theme-secondary-bg-color);
+            color: var(--tg-theme-hint-color);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .nav-tab.active {
+            background: var(--tg-theme-button-color);
+            color: var(--tg-theme-button-text-color);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 10px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+
+        table {
             width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
         }
 
-        .pulse-red {
-            animation: pulse-red 2s infinite;
+        th {
+            background: var(--tg-theme-secondary-bg-color);
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
         }
 
-        @keyframes pulse-red {
-            0% { box-shadow: 0 0 0 0 rgba(229, 62, 62, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(229, 62, 62, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(229, 62, 62, 0); }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #e5e7eb;
         }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .badge-danger { background: #fee2e2; color: #b91c1c; }
+        .badge-success { background: #dcfce7; color: #15803d; }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body>
 
-    <!-- Header Section -->
-    <header class="max-w-7xl mx-auto mb-10 flex flex-col md:flex-row justify-between items-start md:items-center bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
-        <div>
-            <div class="flex items-center gap-2 mb-2">
-                <span class="bg-[#2F855A] text-white text-[10px] font-black px-2 py-0.5 rounded">MPOC</span>
-                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Strategic Intelligence Unit</span>
-            </div>
-            <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">Market Update: The Energy-Agri Convergence</h1>
-            <p class="text-sm text-gray-500 mt-1">Reporting Period: February 28 – March 9, 2026</p>
+    <div class="header">
+        <div class="lang-switcher">
+            <div class="lang-btn active" onclick="setLang('en')">EN</div>
+            <div class="lang-btn" onclick="setLang('ru')">RU</div>
         </div>
-        <div class="mt-4 md:mt-0 text-right">
-            <div class="inline-flex items-center gap-2 px-4 py-2 bg-red-50 border border-red-100 rounded-full pulse-red">
-                <span class="w-2 h-2 bg-red-500 rounded-full"></span>
-                <span class="text-xs font-bold text-red-700 uppercase">High Volatility Alert</span>
-            </div>
+        <h1 class="text-lg font-bold" data-key="main_title">VEGETABLE OILS AND FATS MARKET</h1>
+        <p class="text-[10px] text-gray-500 font-bold uppercase" data-key="date_range">KEY EVENTS 9 – 16 MARCH, 2026</p>
+        <p class="text-[9px] text-gray-400 mt-1" data-key="countries_list">EU-27, Azerbaijan, Armenia, Belarus, Kazakhstan, Kyrgyzstan, Russia, Tajikistan, Turkmenistan, Uzbekistan, Georgia, and Ukraine.</p>
+    </div>
+
+    <div class="nav-tabs">
+        <div class="nav-tab active" data-section="summary" data-key="tab_summary" onclick="showSection('summary', this)">EXECUTIVE SUMMARY</div>
+        <div class="nav-tab" data-section="pricing" data-key="tab_pricing" onclick="showSection('pricing', this)">PRICING DYNAMICS</div>
+        <div class="nav-tab" data-section="production" data-key="tab_production" onclick="showSection('production', this)">PRODUCTION & TRADE</div>
+        <div class="nav-tab" data-section="logistics" data-key="tab_logistics" onclick="showSection('logistics', this)">SUPPLY CHAIN</div>
+        <div class="nav-tab" data-section="regulatory" data-key="tab_regulatory" onclick="showSection('regulatory', this)">REGULATORY</div>
+        <div class="nav-tab" data-section="trends" data-key="tab_trends" onclick="showSection('trends', this)">TRENDS & CONCLUSION</div>
+    </div>
+
+    <!-- Section: Executive Summary -->
+    <div id="summary" class="section">
+        <div class="card">
+            <h2 class="font-bold text-sm mb-2 text-blue-600" data-key="overview_title">OVERVIEW</h2>
+            <p class="text-sm leading-relaxed mb-4" data-key="summary_p1">
+                The reporting period has been defined by a historic <b>"Energy-Agri Convergence."</b> The period opened on March 9 with a dramatic 9.32% surge in Crude Palm Oil (CPO) futures to 4,774 MYR/t ($1,204/MT), the highest level in over a year, precipitated by Brent crude oil clearing the $110/barrel threshold following military escalations in the Persian Gulf.
+            </p>
+            <p class="text-sm leading-relaxed" data-key="summary_p2">
+                By March 14, the functional paralysis of the Strait of Hormuz became absolute, with AIS-confirmed commercial crossings falling to zero. This blockade, responsible for 20% of global oil and 45% of urea supply, has imposed emergency conflict surcharges of $4,000 per container. In Europe and the CIS, sunflower oil hit multi-year highs at $1,616.90/t as "energy terror" in Ukraine idled 25% of national crushing capacity.
+            </p>
         </div>
-    </header>
+    </div>
 
-    <main class="max-w-7xl mx-auto space-y-8">
-
-        <!-- Executive Dashboard -->
-        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="glass-card p-6 metric-card">
-                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">CPO Benchmark (March 9)</p>
-                <div class="flex items-baseline gap-2 mt-1">
-                    <span class="text-2xl font-black">4,774</span>
-                    <span class="text-xs font-bold text-gray-500">MYR/t</span>
-                </div>
-                <div class="text-green-600 text-xs font-bold mt-2 flex items-center">
-                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clip-rule="evenodd"></path></svg>
-                    <span>+9.32% Day Change</span>
-                </div>
-            </div>
-
-            <div class="glass-card p-6 metric-card">
-                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Brent Crude Oil</p>
-                <div class="flex items-baseline gap-2 mt-1">
-                    <span class="text-2xl font-black">$102.65</span>
-                    <span class="text-xs font-bold text-gray-500">USD/bbl</span>
-                </div>
-                <div class="text-red-600 text-xs font-bold mt-2 flex items-center">
-                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clip-rule="evenodd"></path></svg>
-                    <span>+10.75% Day Change</span>
-                </div>
-            </div>
-
-            <div class="glass-card p-6 metric-card border-l-4 border-amber-500">
-                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Kazakhstan Output</p>
-                <div class="flex items-baseline gap-2 mt-1">
-                    <span class="text-2xl font-black">888.8K</span>
-                    <span class="text-xs font-bold text-gray-500">Tons</span>
-                </div>
-                <p class="text-[10px] text-gray-500 mt-2">Annual growth of <span class="text-green-600 font-bold">+17.4%</span></p>
-            </div>
-
-            <div class="glass-card p-6 metric-card border-l-4 border-blue-500">
-                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">India Imports (Feb)</p>
-                <div class="flex items-baseline gap-2 mt-1">
-                    <span class="text-2xl font-black">6-Mo High</span>
-                </div>
-                <p class="text-[10px] text-gray-500 mt-2">Volume increased by <span class="text-green-600 font-bold">+10.1%</span></p>
-            </div>
-        </section>
-
-        <!-- Market Gap & Price Dynamics -->
-        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div class="lg:col-span-2 glass-card p-8">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-                    <h2 class="text-xl font-extrabold text-gray-900">Price Dynamics: Edible Oil Complex</h2>
-                    <div class="flex gap-2 mt-2 md:mt-0">
-                        <span class="flex items-center gap-1 text-[10px] font-bold"><span class="w-3 h-3 bg-[#2F855A] rounded-full"></span> CPO</span>
-                        <span class="flex items-center gap-1 text-[10px] font-bold"><span class="w-3 h-3 bg-[#D69E2E] rounded-full"></span> Sun-Oil</span>
-                    </div>
-                </div>
-                <div class="chart-wrapper">
-                    <canvas id="mainMarketChart"></canvas>
-                </div>
-            </div>
-
-            <!-- Regional Focus & Logistics -->
-            <div class="space-y-4">
-                <div class="glass-card p-6 bg-[#1A202C] text-white">
-                    <h3 class="text-sm font-black uppercase tracking-widest mb-4 border-b border-white/10 pb-2">Logistics Alert</h3>
-                    <div class="space-y-4">
-                        <div class="p-3 bg-red-900/20 rounded-xl border border-red-800">
-                            <p class="text-xs font-bold text-red-400">Strait of Hormuz Status</p>
-                            <p class="text-[11px] text-gray-400 mt-1">Functional paralysis due to conflict. 83% reduction in tanker transits. Surcharges: <span class="text-white font-bold">+$4,000/container</span>.</p>
-                        </div>
-                        <div class="p-3 bg-green-900/20 rounded-xl border border-green-800">
-                            <p class="text-xs font-bold text-green-400">Middle Corridor (TITR)</p>
-                            <p class="text-[11px] text-gray-400 mt-1">Volume surge expected as it bypasses Russia. Port of Baku (Azerbaijan) key gateway for Palm into CA.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-card p-6 border-l-4 border-[#2F855A]">
-                    <h3 class="text-xs font-black uppercase text-gray-400 tracking-widest mb-3">EUDR Update</h3>
-                    <p class="text-xs text-gray-600 leading-relaxed italic">"One-year delay confirmed. MSPO synchronization window remains open until Dec 30, 2026. Downstream operators now exempted from separate DDS."</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Data Tables -->
-        <section class="glass-card overflow-hidden">
-            <div class="p-6 border-b border-gray-100 flex justify-between items-center">
-                <h2 class="text-xl font-extrabold text-gray-900">Central Asia & Caucasus Market Data</h2>
-                <div class="flex gap-4">
-                    <button class="text-xs font-bold text-[#D69E2E] border-b-2 border-[#D69E2E] pb-1">Production</button>
-                    <button class="text-xs font-medium text-gray-400 hover:text-gray-600 pb-1">Supply Chain</button>
-                </div>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm border-collapse">
+    <!-- Section: Pricing -->
+    <div id="pricing" class="section hidden">
+        <div class="card">
+            <h2 class="font-bold text-sm mb-3" data-key="table1_title">1.1 ENERGY-AGRI CONVERGENCE BENCHMARKS</h2>
+            <div class="table-container">
+                <table>
                     <thead>
-                        <tr class="bg-gray-50/50 text-gray-500 uppercase text-[10px] font-black tracking-widest">
-                            <th class="px-6 py-4 border-b">Indicator</th>
-                            <th class="px-6 py-4 border-b">Reporting Value</th>
-                            <th class="px-6 py-4 border-b">YoY Change</th>
-                            <th class="px-6 py-4 border-b">Impact on Palm Oil</th>
+                        <tr>
+                            <th data-key="th_commodity">Commodity</th>
+                            <th data-key="th_market">Market</th>
+                            <th data-key="th_mar9">March 9</th>
+                            <th data-key="th_mar16">March 16</th>
+                            <th data-key="th_change">Change (%)</th>
                         </tr>
                     </thead>
-                    <tbody class="text-gray-700">
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-4 font-bold">Kazakhstan Oilseed Area</td>
-                            <td class="px-6 py-4">3.9 Million Ha</td>
-                            <td class="px-6 py-4 text-green-600 font-bold">+37.7%</td>
-                            <td class="px-6 py-4 text-xs text-gray-500 italic">Increases local soft oil competition, but processing bottlenecks persist.</td>
-                        </tr>
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-4 font-bold">Uzbekistan Import Spend</td>
-                            <td class="px-6 py-4">$2.76 Billion (Total)</td>
-                            <td class="px-6 py-4 text-gray-400 font-bold">Mixed</td>
-                            <td class="px-6 py-4 text-xs text-gray-500 italic">Uzbekistan remains the largest buyer in the region; key target for HORECA palm oil.</td>
-                        </tr>
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-4 font-bold">Ukrainian Sunflower Oil</td>
-                            <td class="px-6 py-4">$1,580/t (FOB)</td>
-                            <td class="px-6 py-4 text-red-600 font-bold">+18.5%</td>
-                            <td class="px-6 py-4 text-xs text-gray-500 italic">Supply shortage drives substitution demand toward Malaysian CPO.</td>
-                        </tr>
+                    <tbody id="benchmarks-body">
+                        <!-- Content via JS -->
                     </tbody>
                 </table>
             </div>
-        </section>
+        </div>
 
-        <!-- Strategic Conclusions -->
-        <section class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-            <h2 class="text-2xl font-black text-gray-900 mb-8 text-center uppercase tracking-tighter">Strategic Implications for MPOC</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="p-6 rounded-2xl bg-[#F0FFF4] border border-green-100">
-                    <div class="w-8 h-8 bg-green-200 rounded-full flex items-center justify-center mb-4">
-                        <span class="text-green-800 font-black">1</span>
-                    </div>
-                    <h4 class="font-bold text-gray-900 mb-2">Pricing Advantage</h4>
-                    <p class="text-xs text-gray-600 leading-relaxed">The spread between Palm and Sun-oil has expanded to over $350/t. This is the primary driver for the <span class="font-bold">10.1% surge</span> in Indian imports and increased interest in Egypt.</p>
-                </div>
-                <div class="p-6 rounded-2xl bg-amber-50 border border-amber-100">
-                    <div class="w-8 h-8 bg-amber-200 rounded-full flex items-center justify-center mb-4">
-                        <span class="text-amber-800 font-black">2</span>
-                    </div>
-                    <h4 class="font-bold text-gray-900 mb-2">Traceability Premium</h4>
-                    <p class="text-xs text-gray-600 leading-relaxed">The EUDR "simplification" for downstream users means early adopters of digital batch passports can secure <span class="font-bold">"Compliant Supplier"</span> status and charge a premium.</p>
-                </div>
-                <div class="p-6 rounded-2xl bg-blue-50 border border-blue-100">
-                    <div class="w-8 h-8 bg-blue-200 rounded-full flex items-center justify-center mb-4">
-                        <span class="text-blue-800 font-black">3</span>
-                    </div>
-                    <h4 class="font-bold text-gray-900 mb-2">Middle Corridor Entry</h4>
-                    <p class="text-xs text-gray-600 leading-relaxed">Infrastructure vulnerability in the Black Sea and Hormuz necessitates a strategic partnership with <span class="font-bold">Port of Baku</span> to supply the CIS region.</p>
-                </div>
+        <div class="card">
+            <h2 class="font-bold text-sm mb-3" data-key="table2_title">1.2 DAILY PRICE TRACKING (USD/MT EQUIVALENT)</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-key="th_date">Date</th>
+                            <th data-key="th_palm">Palm Oil</th>
+                            <th data-key="th_sun">Sun-Oil</th>
+                            <th data-key="th_rape">Rapeseed Oil</th>
+                            <th data-key="th_soy">Soybean Oil</th>
+                        </tr>
+                    </thead>
+                    <tbody id="daily-prices-body">
+                        <!-- Content via JS -->
+                    </tbody>
+                </table>
             </div>
-        </section>
+            <p class="text-[10px] text-gray-400 mt-2" data-key="price_note">*Indicative pricing based on Rotterdam physical mill conversion.</p>
+        </div>
+    </div>
 
-    </main>
+    <!-- Section: Production -->
+    <div id="production" class="section hidden">
+        <div class="card">
+            <h2 class="font-bold text-sm mb-2 uppercase" data-key="kz_title">2.1 Kazakhstan: The Export Powerhouse</h2>
+            <p class="text-xs font-bold mb-1" data-key="kz_roadmap">Strategic Oilseed Roadmap 2026–2028:</p>
+            <ul class="text-xs space-y-1 mb-3" id="kz_list">
+                <!-- Content via JS -->
+            </ul>
+        </div>
 
-    <footer class="max-w-7xl mx-auto mt-12 mb-8 px-6 text-center">
-        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">© 2026 Malaysian Palm Oil Council Strategic Unit | Confidential Research Document</p>
-    </footer>
+        <div class="card">
+            <h2 class="font-bold text-sm mb-2 uppercase" data-key="ua_title">2.2 Ukraine: Adaptive Production</h2>
+            <ul class="text-xs space-y-2" id="ua_list">
+                <!-- Content via JS -->
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2 class="font-bold text-sm mb-2 uppercase text-red-600" data-key="ru_title">2.3 Russia: Domestic Stabilization</h2>
+            <p class="text-xs" data-key="ru_content">Ministry of Agriculture raised export duties on sunflower oil to 9,710.2 RUB/t to mitigate domestic price inflation.</p>
+        </div>
+    </div>
+
+    <!-- Section: Logistics -->
+    <div id="logistics" class="section hidden">
+        <div class="card">
+            <span class="badge badge-danger" data-key="critical_badge">Critical Status</span>
+            <h2 class="font-bold text-sm mb-2" data-key="hormuz_title">3.1 THE STRAIT OF HORMUZ PARALYSIS</h2>
+            <p class="text-xs leading-relaxed" data-key="hormuz_content">
+                AIS confirmed functional zero crossings for commercial vessels on March 14. CMA CGM and MSC maintain a <b>$4,000 emergency surcharge</b> per container. This adds approximately $80–$110/MT to the landed cost of Malaysian palm oil in European and CIS ports.
+            </p>
+        </div>
+
+        <div class="card">
+            <span class="badge badge-success" data-key="strategic_badge">Strategic Alternative</span>
+            <h2 class="font-bold text-sm mb-2" data-key="middle_title">3.2 THE MIDDLE CORRIDOR (TITR)</h2>
+            <ul class="text-xs space-y-1" id="middle_list">
+                <!-- Content via JS -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- Section: Regulatory -->
+    <div id="regulatory" class="section hidden">
+        <div class="card">
+            <h2 class="font-bold text-sm mb-3" data-key="eudr_title">4.1 EUDR: THE TECHNICAL PAUSE</h2>
+            <ul class="text-xs space-y-2" id="eudr_list">
+                <!-- Content via JS -->
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2 class="font-bold text-sm mb-3" data-key="fiscal_title">4.2 CENTRAL ASIAN FISCAL REFORMS</h2>
+            <p class="text-xs mb-2" id="uz_fiscal"><b>Uzbekistan:</b> Extended zero-duty regime on vegetable oil imports until January 1, 2027 (food inflation at 7.2%).</p>
+            <p class="text-xs" id="kz_fiscal"><b>Kazakhstan:</b> Implemented a 20% export duty on sunflower seeds (min. €100/t) to redirect raw materials to domestic plants.</p>
+        </div>
+    </div>
+
+    <!-- Section: Trends -->
+    <div id="trends" class="section hidden">
+        <div class="card">
+            <h2 class="font-bold text-sm mb-2" data-key="trends_title">V. INDUSTRIAL AND CONSUMER TRENDS</h2>
+            <ul class="text-xs space-y-3" id="trends_list">
+                <!-- Content via JS -->
+            </ul>
+        </div>
+
+        <div class="card bg-blue-900 text-white">
+            <h2 class="font-bold text-sm mb-2" data-key="conclusion_title">VI. CONCLUSION: MALAYSIAN PALM OIL INDUSTRY</h2>
+            <p class="text-xs leading-relaxed" data-key="conclusion_content">
+                Middle Corridor Entry: Given the Hormuz paralysis, formalizing supply chains through the Port of Baku is mandatory for Central Asian market stability.
+            </p>
+        </div>
+    </div>
 
     <script>
-        const ctx = document.getElementById('mainMarketChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Feb 28', 'Mar 2', 'Mar 4', 'Mar 6', 'Mar 9 (Peak)'],
-                datasets: [
-                    {
-                        label: 'Crude Palm Oil (MYR/t)',
-                        data: [4210, 4350, 4420, 4510, 4774],
-                        borderColor: '#2F855A',
-                        backgroundColor: 'rgba(47, 133, 90, 0.1)',
-                        fill: true,
-                        tension: 0.4,
-                        borderWidth: 3,
-                        pointRadius: 4,
-                        pointBackgroundColor: '#2F855A'
-                    },
-                    {
-                        label: 'Sunflower Oil (Odesa CPT)',
-                        data: [1210, 1225, 1240, 1255, 1260],
-                        borderColor: '#D69E2E',
-                        borderDash: [5, 5],
-                        tension: 0.4,
-                        borderWidth: 2,
-                        pointRadius: 0
-                    }
+        const translations = {
+            en: {
+                main_title: "VEGETABLE OILS AND FATS MARKET",
+                date_range: "KEY EVENTS 9 – 16 MARCH, 2026",
+                countries_list: "EU-27, Azerbaijan, Armenia, Belarus, Kazakhstan, Kyrgyzstan, Russia, Tajikistan, Turkmenistan, Uzbekistan, Georgia, and Ukraine.",
+                tab_summary: "EXECUTIVE SUMMARY",
+                tab_pricing: "PRICING DYNAMICS",
+                tab_production: "PRODUCTION & TRADE",
+                tab_logistics: "SUPPLY CHAIN",
+                tab_regulatory: "REGULATORY",
+                tab_trends: "TRENDS & CONCLUSION",
+                overview_title: "OVERVIEW",
+                summary_p1: "The reporting period has been defined by a historic <b>\"Energy-Agri Convergence.\"</b> The period opened on March 9 with a dramatic 9.32% surge in Crude Palm Oil (CPO) futures to 4,774 MYR/t ($1,204/MT), the highest level in over a year, precipitated by Brent crude oil clearing the $110/barrel threshold following military escalations in the Persian Gulf.",
+                summary_p2: "By March 14, the functional paralysis of the Strait of Hormuz became absolute, with AIS-confirmed commercial crossings falling to zero. This blockade, responsible for 20% of global oil and 45% of urea supply, has imposed emergency conflict surcharges of $4,000 per container. In Europe and the CIS, sunflower oil hit multi-year highs at $1,616.90/t as \"energy terror\" in Ukraine idled 25% of national crushing capacity.",
+                table1_title: "1.1 ENERGY-AGRI CONVERGENCE BENCHMARKS",
+                th_commodity: "Commodity",
+                th_market: "Market",
+                th_mar9: "March 9",
+                th_mar16: "March 16",
+                th_change: "Change (%)",
+                table2_title: "1.2 DAILY PRICE TRACKING (USD/MT EQUIVALENT)",
+                th_date: "Date",
+                th_palm: "Palm Oil",
+                th_sun: "Sun-Oil",
+                th_rape: "Rapeseed Oil",
+                th_soy: "Soybean Oil",
+                price_note: "*Indicative pricing based on Rotterdam physical mill conversion.",
+                kz_title: "2.1 Kazakhstan: The Export Powerhouse",
+                kz_roadmap: "Strategic Oilseed Roadmap 2026–2028:",
+                kz_list: [
+                    "Approved plan to achieve $1 billion annual export revenue.",
+                    "Current crushing capacity exceeds 5 million tons.",
+                    "Sunflower oil share reached 85.7% of total oil production (888,800 tons, +17.4% YoY).",
+                    "Record raw seed stocks of 2.11 million tons (+38% YoY).",
+                    "Kazakhstan now holds a 28% share of the Chinese oil import market."
+                ],
+                ua_title: "2.2 Ukraine: Adaptive Production",
+                ua_list: [
+                    "<b>Planting Shift:</b> Soybean acreage to increase by 11% (to 3.0 million ha) due to logistical advantages and EUDR compliance requirements.",
+                    "<b>Infrastructure:</b> 25% of national crushing capacity idled by targeted strikes on Allseeds and Bunge (Oleina) facilities.",
+                    "<b>Export Outlook:</b> Projected at 4.1 million tons for MY 2025/26, down 14% from previous periods."
+                ],
+                ru_title: "2.3 Russia: Domestic Stabilization",
+                ru_content: "Ministry of Agriculture raised export duties on sunflower oil to 9,710.2 RUB/t to mitigate domestic price inflation.",
+                critical_badge: "Critical Status",
+                hormuz_title: "3.1 THE STRAIT OF HORMUZ PARALYSIS",
+                hormuz_content: "AIS confirmed functional zero crossings for commercial vessels on March 14. CMA CGM and MSC maintain a <b>$4,000 emergency surcharge</b> per container. This adds approximately $80–$110/MT to the landed cost of Malaysian palm oil in European and CIS ports.",
+                strategic_badge: "Strategic Alternative",
+                middle_title: "3.2 THE MIDDLE CORRIDOR (TITR)",
+                middle_list: [
+                    "China-to-Baku transit time reduced to 11 days.",
+                    "China-origin volumes grew 25x since 2022.",
+                    "Azerbaijan emerging as the primary entry gateway for refined palm oil into the CIS region."
+                ],
+                eudr_title: "4.1 EUDR: THE TECHNICAL PAUSE",
+                eudr_list: [
+                    "<b>Delay:</b> Application pushed to December 30, 2026.",
+                    "<b>System Pause:</b> Information System read-only from Feb 16 until mid-April for \"Downstream Operator\" simplifications.",
+                    "<b>Compliance:</b> Margarine and chocolate processors now exempt from separate Due Diligence Statements (DDS).",
+                    "<b>RED III:</b> Germany and Netherlands ending \"double counting\" for waste-derived biofuels, driving 1.0 billion liter demand for RME."
+                ],
+                fiscal_title: "4.2 CENTRAL ASIAN FISCAL REFORMS",
+                uz_fiscal: "<b>Uzbekistan:</b> Extended zero-duty regime on vegetable oil imports until January 1, 2027 (food inflation at 7.2%).",
+                kz_fiscal: "<b>Kazakhstan:</b> Implemented a 20% export duty on sunflower seeds (min. €100/t) to redirect raw materials to domestic plants.",
+                trends_title: "V. INDUSTRIAL AND CONSUMER TRENDS",
+                trends_list: [
+                    "<b>Substitution:</b> India's palm oil imports rose 11% in February (six-month high) due to high sunflower oil premiums ($350–$400/MT).",
+                    "<b>Margarine Growth:</b> EU industrial margarine market projected at 4.1% CAGR in 2026 as butter prices stay 40% above historical norms.",
+                    "<b>Information:</b> No specific news for Belarus, Armenia, Kyrgyzstan, Tajikistan, or Turkmenistan outside general CIS trade grouping."
+                ],
+                conclusion_title: "VI. CONCLUSION: MALAYSIAN PALM OIL INDUSTRY",
+                conclusion_content: "Middle Corridor Entry: Given the Hormuz paralysis, formalizing supply chains through the Port of Baku is mandatory for Central Asian market stability.",
+                benchmarks: [
+                    ["Crude Palm Oil", "Bursa Malaysia", "4,774 MYR/t", "4,550 MYR/t", "-4.69%", "down"],
+                    ["Sun-Oil (FOB)", "Black Sea Physical", "$1,580.00", "$1,616.90", "+2.33%", "up"],
+                    ["Soybean Oil", "CBOT (Front Month)", "$1,200.00", "$1,160.02", "-3.33%", "down"],
+                    ["Brent Crude Oil", "ICE London", "$102.65", "$112.21", "+9.32%", "up"]
+                ],
+                daily_prices: [
+                    ["March 09", "$1,204.04", "$1,580.00", "$1,345.55*", "$1,200.00"],
+                    ["March 13", "$1,138.25", "$1,582.00", "$1,328.25*", "$1,211.00"],
+                    ["March 16", "$1,148.50", "$1,596.00", "$1,304.50", "$1,164.01"],
+                    ["March 19", "$1,185.00", "$1,616.90", "$1,303.00", "$1,160.02"]
                 ]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: false,
-                        grid: { color: 'rgba(0,0,0,0.05)' },
-                        ticks: { font: { size: 10, weight: 'bold' } }
-                    },
-                    x: {
-                        grid: { display: false },
-                        ticks: { font: { size: 10, weight: 'bold' } }
-                    }
-                }
+            ru: {
+                main_title: "РЫНОК РАСТИТЕЛЬНЫХ МАСЕЛ И ЖИРОВ",
+                date_range: "КЛЮЧЕВЫЕ СОБЫТИЯ 9 – 16 МАРТА, 2026",
+                countries_list: "ЕС-27, Азербайджан, Армения, Беларусь, Казахстан, Кыргызстан, Россия, Таджикистан, Туркменистан, Узбекистан, Грузия и Украина.",
+                tab_summary: "ОСНОВНЫЕ ИТОГИ",
+                tab_pricing: "ДИНАМИКА ЦЕН",
+                tab_production: "ПРОИЗВОДСТВО И ТОРГОВЛЯ",
+                tab_logistics: "ЦЕПОЧКИ ПОСТАВОК",
+                tab_regulatory: "РЕГУЛИРОВАНИЕ",
+                tab_trends: "ТРЕНДЫ И ВЫВОДЫ",
+                overview_title: "ОБЗОР",
+                summary_p1: "Отчетный период ознаменовался исторической <b>«Энерго-Аграрной Конвергенцией»</b>. Период начался 9 марта с резкого скачка фьючерсов на сырое пальмовое масло (CPO) на 9.32% до 4,774 MYR/т ($1,204/MT) — самого высокого уровня более чем за год, вызванного преодолением нефтью марки Brent порога в $110 за баррель после военной эскалации в Персидском заливе.",
+                summary_p2: "К 14 марта функциональный паралич Ормузского пролива стал абсолютным: по данным AIS, коммерческие переходы упали до нуля. Эта блокада, ответственная за 20% мировых поставок нефти и 45% карбамида, привела к введению чрезвычайных надбавок за риск в размере $4,000 за контейнер. В Европе и СНГ цены на подсолнечное масло достигли многолетних максимумов на уровне $1,616.90/т, так как «энергетический террор» в Украине привел к простою 25% мощностей по переработке.",
+                table1_title: "1.1 ЭНЕРГО-АГРАРНЫЕ БЕНЧМАРКИ",
+                th_commodity: "Товар",
+                th_market: "Рынок",
+                th_mar9: "9 Марта",
+                th_mar16: "16 Марта",
+                th_change: "Изм. (%)",
+                table2_title: "1.2 ЕЖЕДНЕВНЫЙ МОНИТОРИНГ ЦЕН (ЭКВИВАЛЕНТ USD/MT)",
+                th_date: "Дата",
+                th_palm: "Пальмовое",
+                th_sun: "Подсолнечное",
+                th_rape: "Рапсовое",
+                th_soy: "Соевое",
+                price_note: "*Индикативные цены на основе пересчета физических заводов в Роттердаме.",
+                kz_title: "2.1 Казахстан: Экспортный лидер",
+                kz_roadmap: "Стратегическая дорожная карта масличных 2026–2028:",
+                kz_list: [
+                    "Утвержден план по достижению ежегодной экспортной выручки в $1 млрд.",
+                    "Текущие мощности переработки превышают 5 млн тонн.",
+                    "Доля подсолнечного масла достигла 85.7% от общего производства масел (888,800 тонн, +17.4% г/г).",
+                    "Рекордные запасы сырья — 2.11 млн тонн (+38% г/г).",
+                    "Казахстан сейчас занимает 28% рынка импорта масел в Китае."
+                ],
+                ua_title: "2.2 Украина: Адаптивное производство",
+                ua_list: [
+                    "<b>Сдвиг в посевах:</b> Площади под сою увеличатся на 11% (до 3.0 млн га) благодаря логистическим преимуществам и требованиям соответствия EUDR.",
+                    "<b>Инфраструктура:</b> 25% национальных мощностей переработки простаивают из-за точечных ударов по объектам Allseeds и Bunge (Oleina).",
+                    "<b>Прогноз экспорта:</b> Прогнозируется на уровне 4.1 млн тонн на 2025/26 МГ, что на 14% ниже предыдущих периодов."
+                ],
+                ru_title: "2.3 Россия: Внутренняя стабилизация",
+                ru_content: "Минсельхоз повысил экспортные пошлины на подсолнечное масло до 9,710.2 руб/т для сдерживания внутренней инфляции цен.",
+                critical_badge: "Критический Статус",
+                hormuz_title: "3.1 ПАРАЛИЧ ОРМУЗСКОГО ПРОЛИВА",
+                hormuz_content: "AIS подтвердил нулевое количество переходов коммерческих судов 14 марта. CMA CGM и MSC сохраняют <b>чрезвычайную надбавку $4,000</b> за контейнер. Это добавляет примерно $80–$110/MT к стоимости поставленного малайзийского пальмового масла в порты Европы и СНГ.",
+                strategic_badge: "Стратегическая Альтернатива",
+                middle_title: "3.2 СРЕДНИЙ КОРИДОР (ТИТР)",
+                middle_list: [
+                    "Время транзита Китай — Баку сокращено до 11 дней.",
+                    "Объемы китайского происхождения выросли в 25 раз с 2022 года.",
+                    "Азербайджан становится основным шлюзом для ввоза рафинированного пальмового масла в регион СНГ."
+                ],
+                eudr_title: "4.1 EUDR: ТЕХНИЧЕСКАЯ ПАУЗА",
+                eudr_list: [
+                    "<b>Задержка:</b> Применение перенесено на 30 декабря 2026 года.",
+                    "<b>Системная пауза:</b> Информационная система находится в режиме «только чтение» с 16 февраля до середины апреля для упрощения работы операторов переработки.",
+                    "<b>Соблюдение:</b> Вторичные переработчики (маргарин/шоколад) теперь освобождены от подачи отдельных деклараций (DDS).",
+                    "<b>RED III:</b> Германия и Нидерланды прекращают «двойной учет» биотоплива из отходов, что стимулирует спрос на RME в объеме 1.0 млрд литров."
+                ],
+                fiscal_title: "4.2 ФИСКАЛЬНЫЕ РЕФОРМЫ В ЦЕНТРАЛЬНОЙ АЗИИ",
+                uz_fiscal: "<b>Узбекистан:</b> Продлен режим нулевых пошлин на импорт растительных масел до 1 января 2027 года (инфляция на продукты питания — 7.2%).",
+                kz_fiscal: "<b>Казахстан:</b> Введена экспортная пошлина 20% (мин. €100/т) на семена подсолнечника для перенаправления сырья на внутренние заводы.",
+                trends_title: "V. ПРОМЫШЛЕННЫЕ И ПОТРЕБИТЕЛЬСКИЕ ТРЕНДЫ",
+                trends_list: [
+                    "<b>Замещение:</b> Импорт пальмового масла в Индию вырос на 11% в феврале (максимум за 6 месяцев), так как покупатели перешли с дорогого подсолнечного масла.",
+                    "<b>Рост маргарина:</b> Рынок промышленного маргарина в ЕС прогнозируется с CAGR 4.1% в 2026 году, так как цены на сливочное масло на 40% выше исторических норм.",
+                    "<b>Информация:</b> Специфических новостей по Беларуси, Армении, Кыргызстану, Таджикистану или Туркменистану вне общей торговой группы СНГ не зафиксировано."
+                ],
+                conclusion_title: "VI. ЗАКЛЮЧЕНИЕ: МАЛАЙЗИЙСКАЯ ПАЛЬМОВАЯ ИНДУСТРИЯ",
+                conclusion_content: "Вход через Средний коридор: Учитывая паралич в Ормузском проливе, формализация цепочек поставок через порт Баку является обязательной для стабильности рынка Центральной Азии.",
+                benchmarks: [
+                    ["Сырое пальмовое масло", "Bursa Malaysia", "4,774 MYR/т", "4,550 MYR/т", "-4.69%", "down"],
+                    ["Подсолнечное (FOB)", "Black Sea Physical", "$1,580.00", "$1,616.90", "+2.33%", "up"],
+                    ["Соевое масло", "CBOT (Front Month)", "$1,200.00", "$1,160.02", "-3.33%", "down"],
+                    ["Нефть Brent", "ICE London", "$102.65", "$112.21", "+9.32%", "up"]
+                ],
+                daily_prices: [
+                    ["09 Марта", "$1,204.04", "$1,580.00", "$1,345.55*", "$1,200.00"],
+                    ["13 Марта", "$1,138.25", "$1,582.00", "$1,328.25*", "$1,211.00"],
+                    ["16 Марта", "$1,148.50", "$1,596.00", "$1,304.50", "$1,164.01"],
+                    ["19 Марта", "$1,185.00", "$1,616.90", "$1,303.00", "$1,160.02"]
+                ]
             }
-        });
+        };
+
+        let currentLang = 'en';
+
+        function setLang(lang) {
+            currentLang = lang;
+            
+            // Update buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
+            });
+
+            // Update simple text elements
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            // Update Lists
+            updateList('kz_list', translations[lang].kz_list);
+            updateList('ua_list', translations[lang].ua_list);
+            updateList('middle_list', translations[lang].middle_list);
+            updateList('eudr_list', translations[lang].eudr_list);
+            updateList('trends_list', translations[lang].trends_list);
+
+            // Update Tables
+            updateBenchmarks(translations[lang].benchmarks);
+            updateDailyPrices(translations[lang].daily_prices);
+
+            // Update Fiscal specific
+            document.getElementById('uz_fiscal').innerHTML = translations[lang].uz_fiscal;
+            document.getElementById('kz_fiscal').innerHTML = translations[lang].kz_fiscal;
+        }
+
+        function updateList(id, items) {
+            const list = document.getElementById(id);
+            list.innerHTML = items.map(item => `<li>• ${item}</li>`).join('');
+        }
+
+        function updateBenchmarks(data) {
+            const body = document.getElementById('benchmarks-body');
+            body.innerHTML = data.map(row => `
+                <tr>
+                    <td>${row[0]}</td>
+                    <td>${row[1]}</td>
+                    <td>${row[2]}</td>
+                    <td>${row[3]}</td>
+                    <td class="${row[5] === 'up' ? 'text-green-500' : 'text-red-500'} font-bold">${row[4]}</td>
+                </tr>
+            `).join('');
+        }
+
+        function updateDailyPrices(data) {
+            const body = document.getElementById('daily-prices-body');
+            body.innerHTML = data.map(row => `
+                <tr>
+                    <td>${row[0]}</td>
+                    <td>${row[1]}</td>
+                    <td>${row[2]}</td>
+                    <td>${row[3]}</td>
+                    <td>${row[4]}</td>
+                </tr>
+            `).join('');
+        }
+
+        function showSection(id, tab) {
+            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+            
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            
+            window.scrollTo(0,0);
+        }
+
+        // Init
+        window.onload = () => setLang('en');
     </script>
 </body>
 </html>
